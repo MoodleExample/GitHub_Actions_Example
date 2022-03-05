@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Download, configure and install gtest
+      run: |
+        wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         tar xf release-1.10.0.tar.gz
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
