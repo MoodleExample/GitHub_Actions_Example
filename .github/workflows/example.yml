@@ -6,6 +6,8 @@ on:
   workflow_dispatch:
     branches: [ master ]
 
+jobs:
+  Build-CC:
     runs-on: ubuntu-latest
     steps:
     - name: Download, configure and install gtest
@@ -22,6 +24,9 @@ on:
         mkdir build
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror" ..
+        make
+
+    - name: Google Test
       run: |
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test
 
