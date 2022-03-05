@@ -17,3 +17,17 @@ jobs:
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
+
+    - name: Checkout the project
+      uses: actions/checkout@v2
+
+    - name: Build
+      run: |
+        mkdir build
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror" ..
+        make
+    - name: Google Test
+      run: |
+        /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test
+  
