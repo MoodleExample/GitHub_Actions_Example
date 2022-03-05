@@ -48,7 +48,7 @@ jobs:
 
     - name: Build & Google Test
       run: |
-        ls /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/
+        ls /home/runner/work/GitHub_Actions_Example
         cd src/func1
         make
   
