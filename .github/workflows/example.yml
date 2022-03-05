@@ -47,7 +47,7 @@ jobs:
 
     - name: Build & Google Test
       run: |
-        ls
+        ls /home/runner
         cd src/func1
         make -I $GITHUB_WORKSPACE/googletest-release-1.10.0/src -I $GITHUB_WORKSPACE/googletest-release-1.10.0
   
