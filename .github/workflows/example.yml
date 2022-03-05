@@ -39,7 +39,7 @@ jobs:
         pwd
         wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         tar xf release-1.10.0.tar.gz
-        cp -rf googletest-release-1.10.0 /usr/local
+        sudo cp -rf googletest-release-1.10.0 /usr/local
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
