@@ -17,5 +17,3 @@ jobs:
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
-    - name: Checkout the project
-      uses: actions/checkout@v2
