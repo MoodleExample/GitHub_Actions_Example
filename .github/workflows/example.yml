@@ -29,7 +29,7 @@ jobs:
         make
     - name: Save Build Result
       uses: actions/upload-artifact@v3
-      if: !failure()
+      if: ${{ !failure() }}
       with:
         name: build
         path: ./build
