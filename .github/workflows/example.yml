@@ -27,24 +27,25 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror" ..
         make
-        ls
+
     - name: Save Build Result
       uses: actions/upload-artifact@v3
       if: ${{ !failure() }}
       with:
         name: build
         path: ./build
+
   CC-Test:
     needs: [Build-CC]
     runs-on: ubuntu-latest
     steps:
     - name: load dist
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: build
     - name: Google Test
       run: |
-        ls -la /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
+        chmod +x /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
   
   Build-C:
@@ -68,4 +69,3 @@ jobs:
         ls /usr/local
         cd src/func1
         make
-  
