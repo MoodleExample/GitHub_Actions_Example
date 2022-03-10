@@ -43,6 +43,7 @@ jobs:
         name: build
     - name: Google Test
       run: |
+        ls /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test
   
   Build-C:
