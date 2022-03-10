@@ -45,7 +45,7 @@ jobs:
     - name: Google Test
       run: |
         ls /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example
-        /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test
+        /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
   
   Build-C:
     runs-on: ubuntu-latest
