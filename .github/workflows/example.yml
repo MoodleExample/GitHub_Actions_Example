@@ -27,6 +27,19 @@ jobs:
         cd build
         cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-Werror" ..
         make
+    - name: Save Build Result
+        uses: actions/upload-artifact@v3
+        if: !failure()
+        with:
+          name: build
+          path: ./build
+  C-Test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: load dist
+      uses: actions/download-artifact@v2
+      with:
+        name: build
     - name: Google Test
       run: |
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test
