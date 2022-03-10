@@ -34,7 +34,7 @@ jobs:
       with:
         name: build
         path: ./build
-  C-Test:
+  CC-Test:
     needs: [Build-CC]
     runs-on: ubuntu-latest
     steps:
@@ -44,7 +44,7 @@ jobs:
         name: build
     - name: Google Test
       run: |
-        ls /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example
+        ls -la /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/test/github_actions_gtest_example.test
   
   Build-C:
