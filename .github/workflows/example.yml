@@ -74,7 +74,7 @@ jobs:
       if: ${{ always() }}
       with:
         name: TestResult
-        path: ./${{ C-Test-Result-File }}
+        path: ./${{ env.C-Test-Result-File }}
         
   Inspection:
     if: ${{ always() }}
