@@ -68,7 +68,7 @@ jobs:
       run: |
         ls ./src/func1
         ls ./test
-        ./src/func1/func1.test --gtest_output=json:./${{ C-Test-Result-File }}
+        ./src/func1/func1.test --gtest_output=json:./${{ env.C-Test-Result-File }}
     - name: Save Test Result
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
