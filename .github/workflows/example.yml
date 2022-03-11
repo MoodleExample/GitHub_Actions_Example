@@ -32,7 +32,6 @@ jobs:
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test --gtest_output=json:./result-CC.json
     - name: Save Test Result
       uses: actions/upload-artifact@v3
-      if: ${{ !failure() }}
       with:
         name: TestResult
         path: ./result-CC.json  
@@ -63,7 +62,6 @@ jobs:
         ./src/func1/func1.test --gtest_output=json:./result-C.json
     - name: Save Test Result
       uses: actions/upload-artifact@v3
-      if: ${{ !failure() }}
       with:
         name: TestResult
         path: ./result-C.json  
