@@ -85,6 +85,25 @@ jobs:
         with:
           repository: MoodleExample/GitHub_Actions_Example.wiki
           path: .wiki
-
+      - name: Add Test Restul to Wiki
+        run: |
+          DIST = .wiki/CI-Result.md
+          TEST_DATE = 'date "+%Y/%m/%d %H:%M"'
+          sed -i -e "4i ## $TEST_DATE" $DIST
+      
+      - name: Configuare the Github Wiki identity
+        working-directory: .wiki
+        run: |
+          git config user.name github-actions
+          git config user.email.github-actions@github.com
+      - name: Update Wiki Page
+        working-directory: .wiki
+        run: |
+          git add .
+          git commit --allow-empty -m "Update the wiki Page by Github Actions (${ GITHUB_WORKFLOW })"
+          git push
+ 
+      
+       
           
       
