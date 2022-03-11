@@ -120,6 +120,6 @@ jobs:
         working-directory: .wiki
         run: |
           git add .
-          git commit --allow-empty -m "Update the wiki Page by Github Actions (${ GITHUB_WORKFLOW })"
+          git commit --allow-empty -m "Update the wiki Page by Github Actions (${GITHUB_WORKFLOW})"
           git push
         
