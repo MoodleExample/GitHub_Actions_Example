@@ -62,6 +62,7 @@ jobs:
         ./src/func1/func1.test --gtest_output=json:./result-C.json
     - name: Save Test Result
       uses: actions/upload-artifact@v3
+      if: ${{ always() }}
       with:
         name: TestResult
         path: ./result-C.json  
