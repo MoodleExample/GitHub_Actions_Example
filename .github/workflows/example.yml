@@ -79,30 +79,43 @@ jobs:
           name: TestResult
       - name: Analyze Google test Result
         run: |
-          ls
+          DIST = .wiki/CI-Result.md
+          WORK_DIR = .wiki    
+
       - name: Clone Wiki
         uses: actions/checkout@v2
         with:
           repository: MoodleExample/GitHub_Actions_Example.wiki
-          path: .wiki
+          path: ${{WORK_DIR}}
+
+      - name: Check CI-Result.md existence
+        id: checkfiles
+        uses: andstor/file-existence-action@v1
+        with:
+          files: ${{DIST}}
+
+      - name: File exists
+        if: steps.check_files.outputs.files_exists == 'false'
+        run: |
+          echo "files not exists!"
+          touch ${{DIST}}
+        
       - name: Add Test Restul to Wiki
         run: |
-          DIST = .wiki/CI-Result.md
           TEST_DATE = 'date "+%Y/%m/%d %H:%M"'
-          sed -i -e "4i ## $TEST_DATE" $DIST
+          sed -i -e "4i ## $TEST_DATE" ${{DIST}}
       
       - name: Configuare the Github Wiki identity
-        working-directory: .wiki
+        working-directory: ${{WORK_DIR}}
         run: |
           git config user.name github-actions
           git config user.email.github-actions@github.com
       - name: Update Wiki Page
-        working-directory: .wiki
+        working-directory: ${{WORK_DIR}}
         run: |
           git add .
           git commit --allow-empty -m "Update the wiki Page by Github Actions (${ GITHUB_WORKFLOW })"
           git push
- 
       
        
           
