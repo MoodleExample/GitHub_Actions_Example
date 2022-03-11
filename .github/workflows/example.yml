@@ -111,7 +111,7 @@ jobs:
         run: |
           TEST_DATE='date "+%Y/%m/%d %H:%M"'
           echo "Test" > CI-Result.md
-          ls
+          cat CI-Result.md
 
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
@@ -121,7 +121,7 @@ jobs:
       - name: Update Wiki Page
         working-directory: .wiki
         run: |
-          git add .
+          git add ./CI-Result.md
           git commit --allow-empty -m "Update the wiki Page by Github Actions (${GITHUB_WORKFLOW})"
           git push
         
