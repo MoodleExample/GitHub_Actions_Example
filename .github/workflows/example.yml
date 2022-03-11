@@ -6,14 +6,22 @@ on:
   workflow_dispatch:
     branches: [ master ]
 
+env:
+  TEST_DATE: 'date "+%Y/%m/%d %H:%M"'
+  G-Test-Package: release-1.10.0.tar.gz
+  C-Test-Result-File: result-C.json
+  CC-Test-Result-File: result-CC.json
+  DIST_FILE: CI-Result.md
+  WORK_DIR: .wiki
+  
 jobs:
   Build-CC:
     runs-on: ubuntu-latest
     steps:
     - name: Download, configure and install gtest
       run: |
-        wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-        tar xf release-1.10.0.tar.gz
+        wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}
+        tar xf ${{ env.G-Test-Package }}
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
@@ -29,21 +37,21 @@ jobs:
         make
     - name: Google Test
       run: |
-        /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test --gtest_output=json:./result-CC.json
+        /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test --gtest_output=json:./${{ env.CC-Test-Result-File }}
     - name: Save Test Result
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: TestResult
-        path: ./result-CC.json  
+        path: ./${{ env.CC-Test-Result-File }}
   
   Build-C:
     runs-on: ubuntu-latest
     steps:
     - name: Download, configure and install gtest
       run: |
-        wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
-        tar xf release-1.10.0.tar.gz
+        wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}
+        tar xf ${{ env.G-Test-Package }}
         sudo cp -rf googletest-release-1.10.0 /usr/local
         cd googletest-release-1.10.0
         cmake -DBUILD_SHARED_LIBS=OFF .
@@ -60,13 +68,13 @@ jobs:
       run: |
         ls ./src/func1
         ls ./test
-        ./src/func1/func1.test --gtest_output=json:./result-C.json
+        ./src/func1/func1.test --gtest_output=json:./${{ C-Test-Result-File }}
     - name: Save Test Result
       uses: actions/upload-artifact@v3
       if: ${{ always() }}
       with:
         name: TestResult
-        path: ./result-C.json  
+        path: ./${{ C-Test-Result-File }}
         
   Inspection:
     if: ${{ always() }}
@@ -91,18 +99,17 @@ jobs:
         id: checkfiles
         uses: andstor/file-existence-action@v1
         with:
-          files: CI-Result.md
+          files: ${{ env.DIST_FILE }}
 
       - name: File exists
         if: steps.check_files.outputs.files_exists == 'false'
         run: |
           echo "files not exists!"
-          touch CI-Result.md
+          touch ${{ env.DIST_FILE }}
         
       - name: Add Test Restul to Wiki
         run: |
-          TEST_DATE = 'date "+%Y/%m/%d %H:%M"'
-          sed -i -e "4i ## $TEST_DATE" CI-Result.md
+          sed -i -e "4i ## ${{ env.TEST_DATE }}" ${{ env.DIST_FILE }}
       
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
