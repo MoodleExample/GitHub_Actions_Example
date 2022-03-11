@@ -60,15 +60,13 @@ jobs:
         cd src/func1
         make
   
-  G-Test-Inspection:
-    needs: [Build-CC, Build-C]
+  Inspection:
+    needs: [Build-CC]
     runs-on: ubuntu-latest
     steps:
-      - name: load dist
+      - name: Load Test Result
         uses: actions/download-artifact@v3
         with:
           name: TestResult
-      - name: Analyze Google Test Result
-        run: |
-          ls
-
+      - name: Analyze Google test Result
+        run: ls
