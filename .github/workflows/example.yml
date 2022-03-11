@@ -7,7 +7,6 @@ on:
     branches: [ master ]
 
 env:
-  TEST_DATE: 'date "+%Y/%m/%d %H:%M"'
   G-Test-Package: release-1.10.0.tar.gz
   C-Test-Result-File: result-C.json
   CC-Test-Result-File: result-CC.json
@@ -109,7 +108,8 @@ jobs:
         
       - name: Add Test Restul to Wiki
         run: |
-          sed -i -e "4i ## ${{ env.TEST_DATE }}" ${{ env.DIST_FILE }}
+          TEST_DATE='date "+%Y/%m/%d %H:%M"'
+          sed -i -e "4i ## $TEST_DATE" ${{ env.DIST_FILE }}
       
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
