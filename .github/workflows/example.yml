@@ -78,4 +78,13 @@ jobs:
         with:
           name: TestResult
       - name: Analyze Google test Result
-        run: ls
+        run: |
+          ls
+      - name: Clone Wiki
+        uses: actions/checkout@v2
+        with:
+          repository: MoodleExample.wiki
+          path: .wiki
+
+          
+      
