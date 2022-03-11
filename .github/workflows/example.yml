@@ -35,14 +35,13 @@ jobs:
       if: ${{ !failure() }}
       with:
         name: TestResult
-        path: ./result.json  
+        path: ./result-CC.json  
   
   Build-C:
     runs-on: ubuntu-latest
     steps:
     - name: Download, configure and install gtest
       run: |
-        pwd
         wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz
         tar xf release-1.10.0.tar.gz
         sudo cp -rf googletest-release-1.10.0 /usr/local
@@ -58,7 +57,16 @@ jobs:
         ls /usr/local
         cd src/func1
         make
-  
+    - name: Google Test
+      run: |
+        ./func1.test --gtest_output=json:./result-C.json
+    - name: Save Test Result
+      uses: actions/upload-artifact@v3
+      if: ${{ !failure() }}
+      with:
+        name: TestResult
+        path: ./result-C.json  
+        
   Inspection:
     if: ${{ always() }}
     needs: [Build-CC, Build-C]
