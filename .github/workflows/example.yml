@@ -110,7 +110,7 @@ jobs:
       - name: Add Test Restul to Wiki
         run: |
           TEST_DATE='date "+%Y/%m/%d %H:%M"'
-          cat "Test" > CI-Result.md
+          echo "Test" > CI-Result.md
 
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
