@@ -83,7 +83,7 @@ jobs:
       - name: Clone Wiki
         uses: actions/checkout@v2
         with:
-          repository: MoodleExample.wiki
+          repository: MoodleExample/GitHub_Actions_Example.wiki
           path: .wiki
 
           
