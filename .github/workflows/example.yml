@@ -111,6 +111,7 @@ jobs:
         run: |
           TEST_DATE='date "+%Y/%m/%d %H:%M"'
           echo "Test" > CI-Result.md
+          ls
 
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
