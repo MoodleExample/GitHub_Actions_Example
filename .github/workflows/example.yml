@@ -54,13 +54,13 @@ jobs:
 
     - name: Build
       run: |
-        ls /usr/local
         cd src/func1
         make
     - name: Google Test
       run: |
-        ls
-        ./func1.test --gtest_output=json:./result-C.json
+        ls ./src/func1
+        ls ./test
+        ./src/func1/func1.test --gtest_output=json:./result-C.json
     - name: Save Test Result
       uses: actions/upload-artifact@v3
       if: ${{ !failure() }}
