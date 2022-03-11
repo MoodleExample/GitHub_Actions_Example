@@ -61,7 +61,8 @@ jobs:
         make
   
   Inspection:
-    needs: [Build-CC]
+    if: ${{ always() }}
+    needs: [Build-CC, Build-C]
     runs-on: ubuntu-latest
     steps:
       - name: Load Test Result
