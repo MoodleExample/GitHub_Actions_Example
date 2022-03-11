@@ -30,13 +30,13 @@ jobs:
     - name: Google Test
       run: |
         /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test/github_actions_gtest_example.test --gtest_output=json:./result.json
-        ls  /home/runner/work/GitHub_Actions_Example/GitHub_Actions_Example/build/test
+        ls
     - name: Save Test Result
       uses: actions/upload-artifact@v3
       if: ${{ !failure() }}
       with:
         name: TestResult
-        path: ./build/result.json  
+        path: ./result.json  
   
   Build-C:
     runs-on: ubuntu-latest
