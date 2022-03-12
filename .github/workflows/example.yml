@@ -88,7 +88,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-
+          files="./*"
+          for filepath in $files; do
+            echo $filepath
+          done
       - name: Clone Wiki
         uses: actions/checkout@v2
         with:
