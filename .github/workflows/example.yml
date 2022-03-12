@@ -91,7 +91,7 @@ jobs:
       - name: Clone Wiki
         uses: actions/checkout@v2
         with:
-          repository: MoodleExample/GitHub_Actions_Example.wiki
+          repository: ${{github.repository}}.wiki
           path: .wiki
           token: ${{ secrets.TOKEN_FOR_WIKI }}
 
