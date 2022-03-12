@@ -107,18 +107,19 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-          files="./*"
-          for filepath in $files; do
-            TEST_NAME=`cat $filepath | jq '.["testsuites"][]["testsuite"][]["name"]'`
-            TEST_RESULT=`cat $filepath | jq -c '.["testsuites"][]["testsuite"][]["failures"] | length'`
-            echo $TEST_NAME
-            echo $TEST_RESULT
-          done
-      - name: Add Test Restul to Wiki
-        run: |
+          pushd .
           cd ${{ env.WORK_DIR }}
           TEST_DATE='date "+%Y/%m/%d %H:%M"'
-          echo "Test" > CI-Result.md
+          sed -i -e "4i ## Google-Test Result ($TEST_DATE)" ${{ env.DIST_FILE }}
+          popd
+          FILES="./*"
+          i=0
+          for FILEPATH in $FILES; do
+            TEST_RESULT=cat C.json | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2`
+            for RESUL in $TEST_RESULT; do
+              echo $TEST_RESULT
+            done
+          done
           cat CI-Result.md
 
       - name: Configuare the Github Wiki identity
