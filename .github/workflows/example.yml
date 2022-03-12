@@ -91,7 +91,7 @@ jobs:
           files="./*"
           for filepath in $files; do
             cat $filepath | jq '.["testsuites"][]["testsuite"][]["name"]'
-            cat C.json | jq -c '.["testsuites"][]["testsuite"][]["failures"] | length'
+            cat $filepath | jq -c '.["testsuites"][]["testsuite"][]["failures"] | length'
           done
       - name: Clone Wiki
         uses: actions/checkout@v2
