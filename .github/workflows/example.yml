@@ -119,6 +119,7 @@ jobs:
             for i in ${array[@]}; do
               TEST_NAME=`echo $i | cut -d" " -f 1`
               TEST_RESULT=`echo $i | cut -d" " -f 2`
+              echo $i
               echo $TEST_NAME $TEST_RESULT
             done
           done
