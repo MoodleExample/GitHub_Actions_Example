@@ -84,15 +84,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: TestResult
-      - name: Analyze Google test Result
-        run: |
-          sudo apt-get update
-          sudo apt-get install jq
-          files="./*"
-          for filepath in $files; do
-            cat $filepath | jq '.["testsuites"][]["testsuite"][]["name"]'
-            cat $filepath | jq -c '.["testsuites"][]["testsuite"][]["failures"] | length'
-          done
       - name: Clone Wiki
         uses: actions/checkout@v2
         with:
@@ -112,6 +103,17 @@ jobs:
           echo "files not exists!"
           touch ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
         
+      - name: Analyze Google test Result
+        run: |
+          sudo apt-get update
+          sudo apt-get install jq
+          files="./*"
+          for filepath in $files; do
+            TEST_NAME=`cat $filepath | jq '.["testsuites"][]["testsuite"][]["name"]'`
+            TEST_RESULT=`cat $filepath | jq -c '.["testsuites"][]["testsuite"][]["failures"] | length'`
+            echo $TEST_NAME
+            echo $TEST_RESULT
+          done
       - name: Add Test Restul to Wiki
         run: |
           cd ${{ env.WORK_DIR }}
