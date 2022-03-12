@@ -90,7 +90,7 @@ jobs:
           sudo apt-get install jq
           files="./*"
           for filepath in $files; do
-            cat $filepath
+            cat $filepath | jq '.["testsuites"][]["testsuite"][]["name"]'
           done
       - name: Clone Wiki
         uses: actions/checkout@v2
