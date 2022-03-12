@@ -94,6 +94,9 @@ jobs:
           repository: ${{github.repository}}.wiki
           path: .wiki
           token: ${{ secrets.TOKEN_FOR_WIKI }}
+      - name: Check
+        run: |
+          ls
 
       - name: Check CI-Result.md existence
         id: check_files
