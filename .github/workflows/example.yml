@@ -86,7 +86,8 @@ jobs:
           name: TestResult
       - name: Analyze Google test Result
         run: |
-          ls
+          apt-get update
+          apt-get install jq
 
       - name: Clone Wiki
         uses: actions/checkout@v2
