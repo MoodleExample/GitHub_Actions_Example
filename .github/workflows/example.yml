@@ -117,7 +117,9 @@ jobs:
           for FILEPATH in $FILES; do
             array=($(cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2))
             for i in ${array[@]}; do
-              echo $i
+              TEST_NAME=`cut -d" " -f 1`
+              TEST_RESULT=`cut -d" " -f 2`
+              echo $TEST_NAME $TEST_RESULT
             done
           done
           cat CI-Result.md
