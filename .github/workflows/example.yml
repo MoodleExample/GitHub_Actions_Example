@@ -96,7 +96,7 @@ jobs:
           token: ${{ secrets.TOKEN_FOR_WIKI }}
       - name: Check
         run: |
-          ls
+          ls -la
 
       - name: Check CI-Result.md existence
         id: check_files
