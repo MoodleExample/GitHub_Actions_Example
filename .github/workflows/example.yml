@@ -117,9 +117,9 @@ jobs:
             if [ $line_no -eq 0 ]; then
               echo -e "\n" > ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             fi
-            sed -i -e "1i ## $FILEPATH ($TEST_DATE)" $DIST_FILE
-            sed -i -e "2i | Test Name | Test Result |" $DIST_FILE
-            sed -i -e "3i |-----------|-------------|" $DIST_FILE
+            sed -i -e "1i ## $FILEPATH ($TEST_DATE)" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            sed -i -e "2i | Test Name | Test Result |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            sed -i -e "3i |-----------|-------------|" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
           done    
           cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
       - name: Configuare the Github Wiki identity
