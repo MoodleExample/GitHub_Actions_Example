@@ -115,7 +115,7 @@ jobs:
             TEST_DATE=`cat $FILEPATH | jq -c '.testsuites[] | .timestamp'`
             line_no=`wc -l ${{ env.WORK_DIR }}/${{ env.DIST_FILE }} | cut -d " " -f 1`
             if [ $line_no -eq 0 ]; then
-              echo -e "\n" > $DIST_FILE
+              echo -e "\n" > ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             fi
             sed -i -e "1i ## $FILEPATH ($TEST_DATE)" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             sed -i -e "2i | Test Name | Test Result |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
