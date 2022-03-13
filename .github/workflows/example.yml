@@ -120,6 +120,17 @@ jobs:
             sed -i -e "1i ## $FILEPATH ($TEST_DATE)" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             sed -i -e "2i | Test Name | Test Result |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             sed -i -e "3i |-----------|-------------|" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            count=0
+            for e in ${array[@]}; do
+              name=`echo ${e} | cut -d "," -f 1`
+              result=`echo ${e} | cut -d "," -f 2`
+              if [ $result -eq 0 ]; then
+                result_mark=":heavy_check_mark:"
+              else
+                result_mark=":x:"
+              fi
+              let count++
+            done
           done    
           cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
       - name: Configuare the Github Wiki identity
