@@ -105,33 +105,14 @@ jobs:
         
       - name: Analyze Google test Result
         run: |
-          # sudo apt-get update
-          # sudo apt-get install jq
+          sudo apt-get update
+          sudo apt-get install jq
           FILES="./*"
           for FILEPATH in $FILES; do
             array=()
             RESULT=`cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2 | sed "s/ /,/g"`
             array=("${array[@]}" $RESULT)
             TEST_DATE=`cat $FILEPATH | jq -c '.testsuites[] | .timestamp'`
-            line_no=`wc -l ${{ env.WORK_DIR }}/${{ env.DIST_FILE }} | cut -d " " -f 1`
-            if [ $line_no -eq 0 ]; then
-              echo -e "\n" > ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
-            fi
-            sed -i -e "1i ## $FILEPATH ($TEST_DATE)" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
-            sed -i -e "2i | Test Name | Test Result |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
-            sed -i -e "3i |-----------|-------------|" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
-            count=0
-            for e in ${array[@]}; do
-              name=`echo ${e} | cut -d "," -f 1`
-              result=`echo ${e} | cut -d "," -f 2`
-              if [ $result -eq 0 ]; then
-                result_mark=":heavy_check_mark:"
-              else
-                result_mark=":x:"
-              fi
-              sed -i -e "${count+4}i | $name | $result_mark |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
-              let count++
-            done
           done    
           cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
       - name: Configuare the Github Wiki identity
