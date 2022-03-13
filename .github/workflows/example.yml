@@ -113,7 +113,7 @@ jobs:
             RESULT=`cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2 | sed "s/ /,/g"`
             array=("${array[@]}" $RESULT)
             TEST_DATE=`cat $FILEPATH | jq -c '.testsuites[] | .timestamp'`
-            line_no=`wc -l CI-Result.md | cut -d " " -f 1`
+            line_no=`wc -l ${{ env.WORK_DIR }}/${{ env.DIST_FILE }} | cut -d " " -f 1`
             if [ $line_no -eq 0 ]; then
               echo -e "\n" > $DIST_FILE
             fi
