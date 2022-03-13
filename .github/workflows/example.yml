@@ -129,6 +129,7 @@ jobs:
               else
                 result_mark=":x:"
               fi
+              sed -i -e "${count+4}i | $name | $result_mark |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
               count=$((count++))
             done
           done    
