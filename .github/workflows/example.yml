@@ -113,6 +113,10 @@ jobs:
             RESULT=`cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2 | sed "s/ /,/g"`
             array=("${array[@]}" $RESULT)
             TEST_DATE=`cat $FILEPATH | jq -c '.testsuites[] | .timestamp'`
+            line_no=`wc -l ${{ env.WORK_DIR }}/${{ env.DIST_FILE }} | cut -d " " -f 1`
+            if [ $line_no -eq 0 ]; then
+              echo -e "\n" > ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            fi
           done    
           cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
       - name: Configuare the Github Wiki identity
