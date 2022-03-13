@@ -129,7 +129,6 @@ jobs:
               else
                 result_mark=":x:"
               fi
-              let count++
             done
           done    
           cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
