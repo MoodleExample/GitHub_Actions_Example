@@ -107,24 +107,31 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install jq
-          pushd .
-          cd ${{ env.WORK_DIR }}
-          TEST_DATE='date "+%Y/%m/%d %H:%M"'
-          sed -i -e "4i ## Google-Test Result ($TEST_DATE)" ${{ env.DIST_FILE }}
-          popd
           FILES="./*"
-          i=0
           for FILEPATH in $FILES; do
-            array=($(cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2))
-            for i in ${array[@]}; do
-              TEST_NAME=`echo $i | cut -d" " -f 1`
-              TEST_RESULT=`echo $i | cut -d" " -f 2`
-              echo $i
-              echo $TEST_NAME $TEST_RESULT
+            array=()
+            RESULT=`cat $FILEPATH | jq -c '.testsuites[].testsuite[] | .name , (.failures | length)' | xargs -n2 | sed "s/ /,/g"`
+            array=("${array[@]}" $RESULT)
+            TEST_DATE=`cat $FILEPATH | jq -c '.testsuites[] | .timestamp'`
+            line_no=`wc -l CI-Result.md | cut -d " " -f 1`
+            if [ $line_no -eq 0 ]; then
+              echo -e "\n" > $DIST_FILE
+            fi
+            sed -i -e "1i ## $FILEPATH ($TEST_DATE)" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            sed -i -e "2i | Test Name | Test Result |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            sed -i -e "3i |-----------|-------------|" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
+            for e in ${array[@]}; do
+              name=`echo ${e} | cut -d "," -f 1`
+              result=`echo ${e} | cut -d "," -f 2`
+              if [ $result -eq 0 ]; then
+                result_mark=":heavy_check_mark:"
+              else
+                result_mark=":x:"
+              fi
+              sed -i -e "${count+4}i | $name | $result_mark |" ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
             done
-          done
-          cat CI-Result.md
-
+          done    
+          cat ${{ env.WORK_DIR }}/${{ env.DIST_FILE }}
       - name: Configuare the Github Wiki identity
         working-directory: .wiki
         run: |
