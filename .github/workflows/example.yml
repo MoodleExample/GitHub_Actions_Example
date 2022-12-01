@@ -23,7 +23,7 @@ jobs:
         ls -la
         tar zxvf ${{ env.G-Test-Package }}.tar.gz
         ls -la
-        cd ${{ env.G-Test-Package }}
+        cd googletest-${{ env.G-Test-Package }}
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
 
