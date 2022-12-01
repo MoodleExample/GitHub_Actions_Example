@@ -21,7 +21,7 @@ jobs:
       run: |
         wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}
         tar xf ${{ env.G-Test-Package }}
-        cd googletest-release-1.10.0
+        cd ${{ env.G-Test-Package }}
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
 
