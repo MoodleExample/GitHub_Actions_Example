@@ -19,7 +19,9 @@ jobs:
     steps:
     - name: Download, configure and install gtest
       run: |
-        wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}.tar.gz -O - | tar xvf -
+        wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}.tar.gz
+        ls -la
+        tar zxvf ${{ env.G-Test-Package }}.tar.gz
         ls -la
         cd ${{ env.G-Test-Package }}
         cmake -DBUILD_SHARED_LIBS=OFF .
