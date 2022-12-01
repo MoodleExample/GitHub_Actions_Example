@@ -21,6 +21,7 @@ jobs:
       run: |
         wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}.tar.gz
         tar xf ${{ env.G-Test-Package }}.tar.gz
+        ls -la
         cd ${{ env.G-Test-Package }}
         cmake -DBUILD_SHARED_LIBS=OFF .
         sudo make install
