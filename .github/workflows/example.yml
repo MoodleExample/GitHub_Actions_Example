@@ -52,7 +52,7 @@ jobs:
     - name: Download, configure and install gtest
       run: |
         wget https://github.com/google/googletest/archive/${{ env.G-Test-Package }}.tar.gz
-        tar zxvf ${{ env.G-Test-Package }}
+        tar zxvf ${{ env.G-Test-Package }}.tar.gz
         sudo cp -rf googletest-${{ env.G-Test-Package }} /usr/local
         cd googletest-${{ env.G-Test-Package }}
         cmake -DBUILD_SHARED_LIBS=OFF .
